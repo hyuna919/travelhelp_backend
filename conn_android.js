@@ -4,7 +4,8 @@ var http = require('http');
 var bodyParser= require('body-parser');
 var app = express();
 
-app.set('port',process.env.PORT || 3000);
+
+app.set('port',process.env.PORT || 3002);
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
@@ -27,6 +28,8 @@ app.use(function(req, res, next) {
 
 });
 
+/*
 var server = http.createServer(app).listen(app.get('port'),function(){
    console.log("익스프레스로 웹 서버를 실행함 : "+ app.get('port')); 
 });
+*/

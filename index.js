@@ -1,24 +1,21 @@
-const express    = require('express');
-const mysql = require('mysql')
-const dbconfig   = require('./config/database.js');
-const connection = mysql.createConnection(dbconfig);
+const db = require('./conn_db.js');
+const app = require('./conn_android.js');
+var http = require('http');
 
-const app = express();
-  
-app.set('port',process.env.PORT || 3000);
+var getUserList = function(){
+    db.then(function(res){
+        console.log("----",res);
+    })
+}
 
-app.get('/',(req, res) => {
-    res.send('Root');
+var server = http.createServer(function(req, res){
+    res.writeHead(200,{'Content-Type':'text/html'});
+
+    getUserList();
+
+    res.end();
 });
 
-app.get('/users', (req, res) => {
-    connection.query('SELECT * from Users', (error, rows) => {
-        if (error) throw error;
-        console.log('User info is: ', rows);
-        res.send(rows);
-      });
-});
-
-app.listen(app.get('port'), () =>{
-    console.log('Express server listening on port ' + app.get('port'));
+server.listen(3000,function(){
+    console.log("server is runnig");
 });
