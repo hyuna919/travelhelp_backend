@@ -1,5 +1,5 @@
 const db = require('./conn_db.js');
-const android = require('./conn_android.js');
+const app = require('./conn_android.js');
 var http = require('http');
 
 var getUserList = function(){
@@ -8,15 +8,11 @@ var getUserList = function(){
     })
 }
 
-var server = http.createServer(function(req, res){
+
+var server = http.createServer(app, function(req, res){
     res.writeHead(200,{'Content-Type':'text/html'});
-
-    getUserList();
-    //android();
-
-    res.end();
 });
 
 server.listen(3000,function(){
-    console.log("server is runnig");
+    getUserList();
 });
