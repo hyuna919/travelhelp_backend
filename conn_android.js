@@ -3,8 +3,8 @@ var http = require('http');
 var bodyParser= require('body-parser');
 var app = express();
 const db = require('./conn_db.js');
+const userList = db.getUserList;
 
-app.set('port',process.env.PORT || 3000);
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 //db에서 계정 목록 가져오는 함수
 var getUserList = function(){
     return new Promise(function(res, rej){
-        db.then(function(resolve){
+        userList.then(function(resolve){
             res(resolve);
         })
     });
@@ -23,7 +23,7 @@ var login = function(paramId, paramPassword){
     return new Promise(function(resolve, rej){
         approve_id = 'false';
         approve_pw = 'false';
-        db.then(function(res){
+        userList.then(function(res){
             i=0;
             
             while(i<res.length){
@@ -31,7 +31,6 @@ var login = function(paramId, paramPassword){
                     approve_id = 'OK';
                     let j = i;
                     if(paramPassword == res[j].password) {
-                        console.log("pw");
                         approve_pw = 'OK';
                         break;
                     }
@@ -40,8 +39,7 @@ var login = function(paramId, paramPassword){
             }
         });
         
-        db.then(function(res){
-            console.log("aaaaaaa",approve_id,approve_pw);
+        userList.then(function(res){
             resolve({approve_id,approve_pw});
         });
     })
@@ -54,23 +52,13 @@ app.use(async function(req, res, next) {
     var approve ={'approve_id':'NO','approve_pw':'NO'};
     var list = await getUserList();
 
-
     var paramId = req.body.id;
     var paramPassword = req.body.password;
-    console.log('id : '+paramId+'  pw : '+paramPassword);
-
 
     approve = await login(paramId, paramPassword);
-    console.log("bbbbbbbbb",approve);
-
 
     res.send(approve);
 
 });
 
 module.exports = app;
-
-/*
-var server = http.createServer(app).listen(app.get('port'),function(){
-   console.log("익스프레스로 웹 서버를 실행함 : "+ app.get('port')); 
-});*/
