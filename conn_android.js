@@ -4,19 +4,13 @@ var bodyParser= require('body-parser');
 var app = express();
 const db = require('./conn_db.js');
 const userList = db.getUserList;
+const insertPost = db.insertPost;
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 
-//db에서 계정 목록 가져오는 함수
-var getUserList = function(){
-    return new Promise(function(res, rej){
-        userList.then(function(resolve){
-            res(resolve);
-        })
-    });
-}
+
 
 //사용자가 입력한 값과 계정 목록 비교해 일치하는지 확인
 var login = function(paramId, paramPassword){
@@ -45,20 +39,43 @@ var login = function(paramId, paramPassword){
     })
 }
 
+
+var writePost= function(){
+    return new Promise(function(res, rej){
+
+    });
+}
+
 //첫 번째 미들웨어
 app.use(async function(req, res, next) {
 
     console.log('첫 번째 미들웨어 호출 됨');
-    var approve ={'approve_id':'NO','approve_pw':'NO'};
-    var list = await getUserList();
+    let approve ={'approve_id':'NO','approve_pw':'NO'};
 
-    var paramId = req.body.id;
-    var paramPassword = req.body.password;
+
+    let paramId = req.body.id;
+    let paramPassword = req.body.password;
 
     approve = await login(paramId, paramPassword);
 
     res.send(approve);
 
+    next();
+});
+
+app.use(async function(req, res, next){
+    console.log('두번째 미들웨어');
+    let approve ={'post_id':'', 'title':'', 'date':'', 'airport':'', 'content':''};
+
+    let paramId = req.body.id;
+    let paramTitle = req.body.title;
+    let paramDate = req.body.date;
+    let paramAirport = req.body.airport;
+    let paramContent = req.body.content;
+
+    approve = await login(paramId, paramTitle, paramDate, paramAirport, paramContent);
+
+    next();
 });
 
 module.exports = app;
