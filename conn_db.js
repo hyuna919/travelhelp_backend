@@ -15,8 +15,8 @@ var getUserList = new Promise(function(resolve, reject){
 
 var insertPost = function(post_id, title, date, airport, content){
         new Promise(function(resolve, reject){
-                var sql = 'INSERT INTO post(title, date, airport, user, content) VALUES(?,?,?,?,?)';
-                var params = [title, date, airport, user, content];
+                var sql = 'INSERT INTO post(post_id, title, date, airport, content) VALUES(?,?,?,?,?)';
+                var params = [post_id, title, date, airport, content];
                 connection.query(sql, params, (error, rows, fields) => {
                         if (error) throw error;                 
                         resolve("추가완료");  

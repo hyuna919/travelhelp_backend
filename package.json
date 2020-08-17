@@ -12,7 +12,9 @@
     "express": "^4.17.1",
     "mariadb": "^2.4.2",
     "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
     "request": "^2.88.2",
-    "require": "^2.4.20"
+    "require": "^2.4.20",
+    "sequelize": "^6.3.4"
   }
 }
