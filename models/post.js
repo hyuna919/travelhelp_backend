@@ -24,6 +24,10 @@ module.exports = (sequelixe, DataTypes)=>{
             type:DataTypes.STRING(1000),
             allowNull:false,
         },
+        country:{
+            type:DataTypes.STRING(20),
+            allowNull:false,
+        },
     },{
         timestamps:true
     });
