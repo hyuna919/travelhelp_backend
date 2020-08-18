@@ -1,22 +1,23 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../conn_db.js');
-const insertPost = db.insertPost;
+const Post = require('../models').Post;
 
 
 router.post('/writePost',async function(req, res, next){
-    console.log('두번째 미들웨어');
-    let approve =false;
+    
+    let approve ={'approve':'OK'};
 
-    let paramId = req.body.id;
-    let paramTitle = req.body.title;
-    let paramDate = req.body.date;
-    let paramAirport = req.body.airport;
-    let paramContent = req.body.content;
+    //실패해도 뭔가 return해줘야함
+    tmp = await Post.create({
+        post_id:req.body.id,
+        title:req.body.title,
+        date:req.body.date,
+        airport:req.body.airport,
+        content:req.body.content
+   });
 
-    await insertPost(paramId, paramTitle, paramDate, paramAirport, paramContent);
-
-    return res.status(200).send("확인");
+    return res.status(200).send(approve);
 });
 
 module.exports = router;
