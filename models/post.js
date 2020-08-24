@@ -1,19 +1,15 @@
-const { DataTypes } = require("sequelize/types");
-const { sequelize } = require(".");
-
-module.exports = (sequelixe, DataTypes)=>{
-    sequelize.define('user',{
-        post_id:{
+module.exports = (sequelize, DataTypes)=>{
+    const Post = sequelize.define('Post',{
+        writer_id:{
             type:DataTypes.STRING(11),
             allowNull:false,
-            unique:true,
         },
         title:{
             type:DataTypes.STRING(20),
             allowNull:false,
         },
         date:{
-            type:DataTypes.date,
+            type:DataTypes.DATE,
             allowNull:false,
         },
         airport:{
@@ -25,10 +21,12 @@ module.exports = (sequelixe, DataTypes)=>{
             allowNull:false,
         },
         country:{
-            type:DataTypes.STRING(20),
+            type:DataTypes.STRING(10),
             allowNull:false,
         },
     },{
         timestamps:true
-    });
+    })
+
+    return Post;
 };

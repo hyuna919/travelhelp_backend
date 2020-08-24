@@ -9,7 +9,7 @@ router.get('/', async function(req, res, next){
     let approve;
 
     try{
-        await Post.findAll({attributes:["title","content"], where:{country:'Germany'}, raw:true}).then(posts=>{
+        await Post.findAll({where:{country:'Germany'}, raw:true}).then(posts=>{
             console.log(posts);
             approve = posts;
         })
