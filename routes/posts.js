@@ -4,7 +4,7 @@ const Post = require('../models').Post;
 
 
 router.post('/writePost',async function(req, res, next){
-    let approve =false;
+    let approve ={'response':''};
 
     try{
         await Post.create({
@@ -15,14 +15,15 @@ router.post('/writePost',async function(req, res, next){
             content:req.body.content,
             country:"Germany"
        });
+       approve.response='OK'
     }catch(err){
         console.log("에러"+err.name+", "+err.message);
-        approve.approve = 'FALSE';
+        approve.response = 'FALSE';
         return res.status(500).send(approve);
     }
 
 
-    return res.status(200).send("OK");
+    return res.status(200).send(approve);
 });
 
 router.post('/deletePost',async function(req, res, next){
@@ -30,7 +31,7 @@ router.post('/deletePost',async function(req, res, next){
     let approve =false;
 
     try{
-        await Post.destroy(where:{writeId:res.id});
+        await Post.destroy({where:{writer_id:res.id,createdAt:res.createdAt}});
     }catch(err){
         console.log("에러"+err.name+", "+err.message);
         approve.approve = 'FALSE';
