@@ -1,7 +1,7 @@
 const db = require('./conn_db.js');
 const app = require('./conn_android.js');
 var http = require('http');
-const sequelize = require('./models/index').sequelize;
+var sequelize = require('./models').sequelize;
 
 sequelize.sync();
 

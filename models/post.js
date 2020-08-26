@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes)=>{
     const Post = sequelize.define('Post',{
-        post_id:{
+        writer_id:{
             type:DataTypes.STRING(11),
             allowNull:false,
         },
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes)=>{
             allowNull:false,
         },
         date:{
-            type:DataTypes.DATE,
+            type:DataTypes.DATEONLY,
             allowNull:false,
         },
         airport:{
@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes)=>{
         },
         content:{
             type:DataTypes.STRING(1000),
+            allowNull:false,
+        },
+        country:{
+            type:DataTypes.STRING(10),
             allowNull:false,
         },
     },{

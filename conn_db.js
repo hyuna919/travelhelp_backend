@@ -13,7 +13,7 @@ var getUserList = new Promise(function(resolve, reject){
            
 });
 
-var insertPost = function(post_id, title, date, airport, content){
+/* var insertPost = function(post_id, title, date, airport, content){
         new Promise(function(resolve, reject){
                 var sql = 'INSERT INTO post(post_id, title, date, airport, content) VALUES(?,?,?,?,?)';
                 var params = [post_id, title, date, airport, content];
@@ -22,7 +22,7 @@ var insertPost = function(post_id, title, date, airport, content){
                         resolve("추가완료");  
                 });       
         });
-}
+} */
 
 /* var updatePost = new Promise(function(resolve, reject){
         connection.query('UPDATE post SET ', (error, rows) => {
@@ -39,6 +39,6 @@ var insertPost = function(post_id, title, date, airport, content){
 }); */
 
 module.exports.getUserList=getUserList;
-module.exports.insertPost=insertPost;
+//module.exports.insertPost=insertPost;
 /* module.exports.updatePost=updatePost;
 module.exports.deletePost=deletePost; */
