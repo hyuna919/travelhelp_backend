@@ -19,14 +19,14 @@ router.post('/login', async function(req, res, next){
       },
       secretObj.secret ,    // 비밀 키
       {
-        expiresIn: '5m'    // 유효 시간은 5분
+        expiresIn: '10m'    // 유효 시간은 5분
       })
 
     try{
-        await User.findOne({where:{id:"root"}})
+        await User.findOne({where:{id:paramId}})
         .then(user=>{
             console.log(user)
-            if(user.password=="1234"){
+            if(user.password==paramPassword){
                 approve.approve_id='OK'
                 res.cookie("user", token);
                 res.json({token: token})
