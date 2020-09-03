@@ -5,11 +5,12 @@ const Post = require('../models').Post;
 
 
 //국가별 주소로
-router.get('/', async function(req, res, next){
+router.get('/:key/:limit', async function(req, res, next){
     let approve;
-
+    let key = Number(req.params.key);
+    let limit = Number(req.params.limit);
     try{
-        await Post.findAll({where:{country:'Germany'}, raw:true}).then(posts=>{
+        await Post.findAll({where:{country:'Germany'}, raw:true, offset:key+1,limit:limit}).then(posts=>{
             console.log(posts);
             approve = posts;
         })
@@ -19,6 +20,19 @@ router.get('/', async function(req, res, next){
         return res.status(500).send(approve);
     }
     return res.status(200).send(approve);
+})
+
+router.get('/a/:key', async function(req, res, next){
+    let approve;
+
+    try{
+        console.log(req.query.id);
+    }catch(err){
+        console.log('에러'+err.name);
+        approve = false;
+        return res.status(500).send(approve);
+    }
+    return res.status(200).send(req.params.id);
 })
 
 module.exports = router;
