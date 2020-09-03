@@ -22,17 +22,4 @@ router.get('/:key/:limit', async function(req, res, next){
     return res.status(200).send(approve);
 })
 
-router.get('/a/:key', async function(req, res, next){
-    let approve;
-
-    try{
-        console.log(req.query.id);
-    }catch(err){
-        console.log('에러'+err.name);
-        approve = false;
-        return res.status(500).send(approve);
-    }
-    return res.status(200).send(req.params.id);
-})
-
 module.exports = router;
