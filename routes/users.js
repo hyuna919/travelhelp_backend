@@ -1,10 +1,14 @@
-var express = require('express');
-const app = require('../conn_android');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const User = require('../models').User;
 
 let jwt = require("jsonwebtoken");
 let secretObj = require("../config/jwt");
+
+router.get('/', async function(req, res, next){
+    res.send("true");
+    console.log("테스트");
+});
 
 //로그인+로그인에 따른 토큰 발급
 router.post('/login', async function(req, res, next){
@@ -29,7 +33,7 @@ router.post('/login', async function(req, res, next){
             if(user.password==paramPassword){
                 approve.approve_id='OK'
                 res.cookie("user", token);
-                res.json({token: token})
+                res.json({token: token, id: paramId})
             }
         })
     }catch(err){

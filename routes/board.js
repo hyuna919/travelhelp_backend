@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../conn_db')
 const Post = require('../models').Post;
 
 
@@ -10,8 +9,10 @@ router.get('/:key/:limit', async function(req, res, next){
     let key = Number(req.params.key);
     let limit = Number(req.params.limit);
     try{
+        await Post.count().then(result=>{})
+
         await Post.findAll({where:{country:'Germany'}, raw:true, offset:key+1,limit:limit}).then(posts=>{
-            console.log(posts);
+            console.log(key);
             approve = posts;
         })
     }catch(err){
