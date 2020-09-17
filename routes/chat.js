@@ -6,26 +6,33 @@ var socketio = function(server){
 
     io.on('connection', function(socket){
  
-        //로그인하면 이거 밑에 두개뜸
+        //채팅룸 접속
         console.log('User Conncetion~~~~~~~~~');
        
         socket.on('connect user', function(user){
-          console.log("Connected user ");
-          socket.join(user['roomName']);
-          console.log("roomName : ",user['roomName']);
-          console.log("state : ",socket.adapter.rooms);
-          io.emit('connect user', user);
+            console.log("Connected user ");
+            socket.join(user['roomName']);
+            console.log("roomName : ",user['roomName']);
+            console.log("state : ",socket.adapter.rooms);
+            io.emit('connect user', user);
         });
        
        
-        //메세지 입력하면 서버 로그에 이거뜸
-        socket.on('chat message', function(msg){
-          // console.log("Message " + msg['message']);
-          // console.log("송신자 : ",msg['sender']);
-          // console.log("수신자 : ",msg['receiver']);
-          // console.log("날짜 : ",msg['date']);
-          // console.log("시간 : ",msg['time']);
-          io.to(msg['receiver']).emit('chat message', msg);
+        //메세지 추가
+        socket.on('chat message', async function(msg){
+            //db저장
+            await Message.create({
+                sender: msg['sender'],
+                receiver: msg['receiver'],
+                date: msg['date'],
+                time: msg['time'],
+                message: msg['message']
+           });
+            
+            //응답
+            io.to(msg['receiver']).emit('chat message', msg);
+
+            
         });
       });
 

@@ -1,5 +1,4 @@
-const { Model, DataTypes } = require("sequelize/types");
-const { sequelize } = require(".");
+const Sequelize = require('sequelize');
 
 module.exports = (sequelize,DataTypes)=>{
     const Message = sequelize.define('Message',{
@@ -11,8 +10,12 @@ module.exports = (sequelize,DataTypes)=>{
             type:DataTypes.STRING(11),
             allowNull:false
         },
-        time:{
+        date:{
             type:DataTypes.DATEONLY,
+            allowNull:false
+        },
+        time:{
+            type:Sequelize.TIME,
             allowNull:false
         },
         message:{
@@ -20,4 +23,5 @@ module.exports = (sequelize,DataTypes)=>{
             allowNull:false
         }
     })
+    return Message;
 }
