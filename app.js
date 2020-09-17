@@ -1,17 +1,25 @@
 const app = require('./conn_android.js');
 const http = require('http').Server(app);
+const io = require('./routes/chat.js')(http);
+//const io = require('socket.io')(http);
 const sequelize = require('./models').sequelize;
-const io = require('socket.io').listen(http);
+
 sequelize.sync();
 
-http.listen(3000,function(){
-});
+// app.set('port', (process.env.PORT || 3000));
+ 
+// app.use(express.static(__dirname + '/public'));
+ 
+// // views is directory for all template files
+// app.set('views', __dirname + '/views');
+// app.set('view engine', 'ejs');
+ 
+//서버연결하기 직전에뜸
+console.log("outside io");
 
-io.sockets.on('connection', function(socket){
-    console.log("socket 22222222222222222222");
-    socket.on('client msg', function(data){
-        console.log("0000000000000000000000000000");
-        io.emit('server msg:', "aaaa");
-        socket.send("hi");
-    });
+
+
+
+http.listen(3000, function(){
+    console.log('Node app is running on port', app.get('port'));
 });
