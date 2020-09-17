@@ -1,9 +1,7 @@
 const express = require('express');
-const router = express.Router();
 const Message = require('../models').Message; 
-//const io = require('socket.io');
 
-var a = function(server){
+var socketio = function(server){
     var io = require('socket.io')(server);
 
     io.on('connection', function(socket){
@@ -34,6 +32,4 @@ var a = function(server){
     return io;
 }
 
-
-
-module.exports = a;
+module.exports = socketio;
