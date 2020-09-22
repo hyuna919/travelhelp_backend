@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes)=>{
         },
         password:{
             type:DataTypes.STRING(255),
-            allowNull:false,
+            allowNull:false
         },
     },{
         timestamps:true

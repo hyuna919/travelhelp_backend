@@ -6,23 +6,23 @@ module.exports = (sequelize, DataTypes)=>{
         },
         title:{
             type:DataTypes.STRING(20),
-            allowNull:false,
+            allowNull:false
         },
         date:{
             type:DataTypes.DATEONLY,
-            allowNull:false,
+            allowNull:false
         },
         airport:{
             type:DataTypes.STRING(20),
-            allowNull:false,
+            allowNull:false
         },
         content:{
             type:DataTypes.STRING(1000),
-            allowNull:false,
+            allowNull:false
         },
         country:{
             type:DataTypes.STRING(10),
-            allowNull:false,
+            allowNull:false
         },
     },{
         timestamps:true

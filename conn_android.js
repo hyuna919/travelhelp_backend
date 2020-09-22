@@ -1,5 +1,4 @@
 var express = require('express');
-var http = require('http');
 var bodyParser= require('body-parser');
 var app = express();
 
@@ -13,7 +12,6 @@ app.use(bodyParser.json());
 app.use('/users', userRouter);
 app.use('/posts', postRouter);
 app.use('/board', boardRouter);
-
 
 
 module.exports = app;

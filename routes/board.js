@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../conn_db')
 const Post = require('../models').Post;
 
 
 //국가별 주소로
-router.get('/', async function(req, res, next){
+router.get('/:key/:limit', async function(req, res, next){
     let approve;
-
+    let key = Number(req.params.key);
+    let limit = Number(req.params.limit);
     try{
-        await Post.findAll({where:{country:'Germany'}, raw:true}).then(posts=>{
-            console.log(posts);
+        await Post.count().then(result=>{})
+
+        await Post.findAll({where:{country:'Germany'}, raw:true, offset:key+1,limit:limit}).then(posts=>{
+            console.log(key);
             approve = posts;
         })
     }catch(err){
