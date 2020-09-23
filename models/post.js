@@ -38,11 +38,17 @@ module.exports = (sequelize, DataTypes)=>{
             type: Sequelize.BLOB,
             allowNull: true
         }
-        
-        
     },{
         timestamps:true
     })
+
+    Post.associate = function(models){
+        //User와의 관계
+        Post.belongsTo(models.User, {
+            foreignKey: "writer_id",
+            targetKey: "id"
+        });
+    }
 
     return Post;
 };

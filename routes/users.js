@@ -66,7 +66,7 @@ router.post('/signup', async function(req, res, next){
 
 //회원가입시 아이디 중복확인
 router.post('/signup/checkId', async function(req, res, next){
-    console.log("회원가입");
+    console.log("중복확인");
     let approve ={'approve_id':'NO'};
 
     let paramId = req.body.id;

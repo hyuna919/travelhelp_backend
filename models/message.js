@@ -2,6 +2,10 @@ const Sequelize = require('sequelize');
 
 module.exports = (sequelize,DataTypes)=>{
     const Message = sequelize.define('Message',{
+        roomNumber:{
+            type:DataTypes.STRING,
+            allowNull:false
+        },
         sender:{
             type:DataTypes.STRING(11),
             allowNull:false
@@ -23,5 +27,24 @@ module.exports = (sequelize,DataTypes)=>{
             allowNull:false
         }
     })
+
+    Message.associate = function(models){
+        //Room와의 관계
+        Message.belongsTo(models.Room, {
+            foreignKey: "roomNumber",
+            targetKey: "roomNumber"
+        });
+
+        //User와의 관계
+        Message.belongsTo(models.User, {
+            foreignKey: "sender",
+            targetKey: "id"
+        });
+        Message.belongsTo(models.User, {
+            foreignKey: "receiver",
+            targetKey: "id"
+        });
+    };
+
     return Message;
 }
